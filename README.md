@@ -1,1 +1,1 @@
-JS_Fighting_game
+JS_Fighting_game!
