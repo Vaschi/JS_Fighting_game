@@ -1,0 +1,57 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* when calculating the width takes padding into account */
+}
+
+#scene {
+  position: relative;
+  display: inline-block;
+}
+
+#stats {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+
+.healthBox {
+  position: relative;
+  /* border: solid 1px beige; */
+  height: 2rem;
+  width: 100%;
+}
+.health {
+  background-color: yellow;
+  height: 2rem;
+}
+
+#timer {
+  background-color: red;
+  height: 6rem;
+  width: 6rem;
+  flex-shrink: 0;
+}
+
+/* PLAYER */
+#missingHealthPlayer {
+  position: absolute;
+  background-color: blue;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+}
+
+/* ENEMY */
+
+#missingHealthEnemy {
+  position: absolute;
+  background-color: blue;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}

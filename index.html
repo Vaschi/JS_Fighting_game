@@ -3,10 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>The Game</title>
   </head>
   <body>
-    <canvas></canvas>
+    <div id="scene">
+      <div id="stats">
+        <!-- Player health -->
+        <div class="healthBox" style="display: flex; justify-content: flex-end">
+          <div class="health" style="width: 100%"></div>
+          <div id="missingHealthPlayer"></div>
+        </div>
+        <!-- timer -->
+        <div id="timer"></div>
+        <!-- Enemy health -->
+        <div class="healthBox">
+          <div class="health"></div>
+          <div id="missingHealthEnemy"></div>
+        </div>
+      </div>
+      <canvas></canvas>
+    </div>
 
     <script src="./app.js"></script>
   </body>
