@@ -28,13 +28,6 @@
   height: 2rem;
 }
 
-#timer {
-  background-color: red;
-  height: 6rem;
-  width: 6rem;
-  flex-shrink: 0;
-}
-
 /* PLAYER */
 #missingHealthPlayer {
   position: absolute;
@@ -54,4 +47,28 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+/* TIMER */
+#timer {
+  background-color: red;
+  height: 6rem;
+  width: 6rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center; /* center on y-axis */
+  justify-content: center; /* center on x-axis */
+}
+
+#endGame {
+  position: absolute;
+  color: antiquewhite;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  display: none;
 }

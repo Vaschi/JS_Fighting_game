@@ -123,6 +123,30 @@ enemy.draw();
 /////////////////// GAMEPLAY, GIVE IT LIFE , ANIMATE
 
 ////// THE LOOP, FUNCTION'S /////
+function determineWinner({ player, enemy, timerId }) {
+  clearTimeout(timerId);
+  document.querySelector("#endGame").style.display = "flex";
+  if (player.health === enemy.health) {
+    document.querySelector("#endGame").innerHTML = "Tie";
+  } else if (player.health > enemy.health) {
+    document.querySelector("#endGame").innerHTML = "Player 1 WINS!";
+  } else if (player.health < enemy.health) {
+    document.querySelector("#endGame").innerHTML = "Player 2 WINS!";
+  }
+}
+
+let timer = 60;
+let timerId;
+function decreseTimer() {
+  if (timer > 0) {
+    timer--;
+    document.querySelector("#timer").innerHTML = timer;
+    timerId = setTimeout(decreseTimer, 1000);
+  }
+  if (timer === 0) {
+    determineWinner({ player, enemy, timerId });
+  }
+}
 
 function rectangularCollision({ rect1, rect2 }) {
   return (
@@ -184,6 +208,11 @@ function animate() {
     document.querySelector("#missingHealthPlayer").style.width =
       player.health + "%";
   }
+
+  // end game based on hp
+  if (enemy.health <= 0 || player.health <= 0) {
+    determineWinner({ player, enemy, timerId });
+  }
 }
 
 // Movement
@@ -242,4 +271,5 @@ window.addEventListener("keyup", (e) => {
   }
 });
 
+decreseTimer();
 animate();
