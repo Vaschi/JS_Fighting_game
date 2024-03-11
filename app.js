@@ -10,65 +10,6 @@ c.fillRect(0, 0, canvas.width, canvas.height);
 
 const gravity = 0.7; // acceleration
 
-class Sprite {
-  constructor({ position, velocity, color = "red", offset }) {
-    this.position = position;
-    this.velocity = velocity; // gravity, physics
-    this.color = color;
-    this.height = 150; // the bottom of the rect
-    this.width = 50;
-    this.lastKey;
-    this.attackBox = {
-      position: {
-        x: this.position.x,
-        y: this.position.y,
-      },
-      offset,
-      width: 100,
-      height: 50,
-    };
-    this.isAttacking;
-    this.health = 100;
-  }
-  draw() {
-    c.fillStyle = this.color;
-    c.fillRect(this.position.x, this.position.y, this.width, this.height);
-    // attack box
-    if (this.isAttacking) {
-      c.fillStyle = "green";
-      c.fillRect(
-        this.attackBox.position.x,
-        this.attackBox.position.y,
-        this.attackBox.width,
-        this.attackBox.height
-      );
-    }
-  }
-
-  update() {
-    this.draw();
-    this.attackBox.position.x = this.position.x - this.attackBox.offset.x;
-    this.attackBox.position.y = this.position.y;
-
-    this.position.x += this.velocity.x;
-    this.position.y += this.velocity.y;
-
-    // make it stop at the bottom
-    if (this.position.y + this.height + this.velocity.y >= canvas.height) {
-      this.velocity.y = 0;
-    } else {
-      this.velocity.y += gravity;
-    }
-  }
-
-  attack() {
-    this.isAttacking = true;
-    setTimeout(() => {
-      this.isAttacking = false;
-    }, 100);
-  }
-}
-
 // last key pressed movement
 const keys = {
   a: {
@@ -86,8 +27,15 @@ const keys = {
 };
 let lastKey;
 ////// GAME ASSETS, WHAT YOU SEE ////////
+const background = new Sprite({
+  position: {
+    x: 0,
+    y: 0,
+  },
+  imageSrc: "game_assets/background_scaled_2.jpg",
+});
 
-const player = new Sprite({
+const player = new Fighter({
   position: {
     x: 0,
     y: 0,
@@ -101,7 +49,7 @@ const player = new Sprite({
     y: 0,
   },
 });
-const enemy = new Sprite({
+const enemy = new Fighter({
   position: {
     x: 400,
     y: 100,
@@ -123,45 +71,13 @@ enemy.draw();
 /////////////////// GAMEPLAY, GIVE IT LIFE , ANIMATE
 
 ////// THE LOOP, FUNCTION'S /////
-function determineWinner({ player, enemy, timerId }) {
-  clearTimeout(timerId);
-  document.querySelector("#endGame").style.display = "flex";
-  if (player.health === enemy.health) {
-    document.querySelector("#endGame").innerHTML = "Tie";
-  } else if (player.health > enemy.health) {
-    document.querySelector("#endGame").innerHTML = "Player 1 WINS!";
-  } else if (player.health < enemy.health) {
-    document.querySelector("#endGame").innerHTML = "Player 2 WINS!";
-  }
-}
-
-let timer = 60;
-let timerId;
-function decreseTimer() {
-  if (timer > 0) {
-    timer--;
-    document.querySelector("#timer").innerHTML = timer;
-    timerId = setTimeout(decreseTimer, 1000);
-  }
-  if (timer === 0) {
-    determineWinner({ player, enemy, timerId });
-  }
-}
-
-function rectangularCollision({ rect1, rect2 }) {
-  return (
-    rect1.attackBox.position.x + rect1.attackBox.width >= rect2.position.x &&
-    rect1.attackBox.position.x <= rect2.position.x + rect2.width &&
-    rect1.attackBox.position.y + rect1.attackBox.height >= rect2.position.y &&
-    rect1.attackBox.position.y <= rect2.position.y + rect2.height
-  );
-}
 
 function animate() {
   window.requestAnimationFrame(animate);
 
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
+  background.update();
   player.update();
   enemy.update();
 
