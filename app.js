@@ -32,7 +32,7 @@ const background = new Sprite({
     x: 0,
     y: 0,
   },
-  imageSrc: "game_assets/background_scaled_2.jpg",
+  imageSrc: "./game_assets/creepy_background.png",
 });
 
 const player = new Fighter({
